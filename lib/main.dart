@@ -1,8 +1,11 @@
-import 'package:flutter/material.dart';
-import 'package:weforus/volunteer_dashboard.dart';
 
-import 'login.dart';
-import 'organization_dashboard.dart';
+import 'package:weforus/ProfileScreen.dart';
+import 'package:weforus/login.dart';
+import 'package:weforus/signup.dart';
+
+
+import 'ApplicationList.dart';
+import 'ManageApplications.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,31 +14,64 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
+
   @override
   Widget build(BuildContext context) {
+    double deviceWidth = MediaQuery.of(context).size.width;
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a blue toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        primaryColor: Colors.blue,
+        secondaryHeaderColor: Colors.amber,
+        scaffoldBackgroundColor: Colors.white,
+        fontFamily: 'Roboto',
         useMaterial3: true,
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            primary: Color.fromRGBO(81, 130, 155,1), // background color
+            onPrimary: Colors.white, // text color
+            shadowColor: Colors.black, // shadow color
+            elevation: 5, // elevation
+            textStyle: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+            padding: EdgeInsets.symmetric(horizontal: (deviceWidth-270), vertical: 10),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+          ),
+        ),
+        switchTheme: SwitchThemeData(
+          thumbColor: MaterialStateProperty.resolveWith((states) {
+            if (states.contains(MaterialState.selected)) {
+              return Colors.green; // Thumb color when the switch is ON
+            }
+            return Colors.grey;// Thumb color when the switch is OFF
+          }),
+          trackColor: MaterialStateProperty.resolveWith((states) {
+            if (states.contains(MaterialState.selected)) {
+              return Colors.green.withOpacity(0.5); // Track color when the switch is ON
+            }
+            return Colors.grey.withOpacity(0.5); // Track color when the switch is OFF
+          }),
+          trackOutlineColor: MaterialStateProperty.resolveWith((states) {
+            if (states.contains(MaterialState.selected)) {
+              return Colors.green.withOpacity(0.1); // Track outline color when the switch is ON
+            }
+            return Colors.grey.withOpacity(0.1); // Track outline color when the switch is OFF
+          }),
+        ),
       ),
-      home: VolenteerDashboard(),
+
+      initialRoute: '/applications',
+      routes: {
+        '/login': (context) => LoginPage(),
+        '/signup': (context) => SignupPage(),
+        '/profile': (context) =>  ProfileScreen(),
+        '/applications': (context) =>  ManageApplicationsScreen(),
+        '/applicationslist': (context) =>  ApplicationListScreen(),
+      },
     );
   }
 }
