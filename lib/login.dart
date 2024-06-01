@@ -5,6 +5,10 @@ import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:toastification/toastification.dart';
+import 'package:weforus/signup.dart';
+
+import 'organization_dashboard.dart';
+
 
 class LoginPage extends StatefulWidget {
   @override
@@ -74,12 +78,12 @@ class _LoginPageState extends State<LoginPage> {
         dragToClose: true,
         applyBlurEffect: true,
       );
-      if(userRole == 'jobApplicant'){
-        // Navigator.of(context).pushReplacement(
-        //   MaterialPageRoute(
-        //     // builder: (context) => HomeScreen(),
-        //   ),
-        // );
+      if(userRole == 'organization'){
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (context) => OrganizationDashboard(),
+          ),
+        );
 
       }
       else if(userRole=='employer'){
@@ -235,11 +239,11 @@ class _LoginPageState extends State<LoginPage> {
             SizedBox(height: 30.0,),
             GestureDetector(
               onTap: () {
-                // Navigator.of(context).pushReplacement(
-                //     MaterialPageRoute(
-                //       builder: (context) => SignupPage(),
-                //     ),
-                //    );
+                Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(
+                      builder: (context) => SignupPage(),
+                    ),
+                   );
               },
               child: Text(
                 'Don\'t have an Account? Signup',
