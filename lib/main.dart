@@ -1,7 +1,8 @@
-import 'package:flutter/material.dart';
+
 import 'package:weforus/ProfileScreen.dart';
 import 'package:weforus/login.dart';
 import 'package:weforus/signup.dart';
+
 
 import 'ApplicationList.dart';
 import 'ManageApplications.dart';
@@ -62,6 +63,7 @@ class MyApp extends StatelessWidget {
           }),
         ),
       ),
+
       initialRoute: '/applications',
       routes: {
         '/login': (context) => LoginPage(),

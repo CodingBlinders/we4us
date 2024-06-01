@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:weforus/volunteersidebar.dart';
 
-class VolunteerDashboard extends StatelessWidget {
+class VolenteerDashboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,23 +30,55 @@ class VolunteerDashboard extends StatelessWidget {
             ),
             SizedBox(height: 20),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                StatCard(title: 'Projects Completed', value: '1.3K'),
-                StatCard(title: 'Active Volunteers', value: '754'),
-                StatCard(title: 'Donations Received', value: '\$6M+'),
+              children: [
+                Text(
+                  'Featured Events',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+                Spacer(),
+                GestureDetector(
+                  onTap: () {
+                    // Add your onTap functionality here
+                  },
+                  child: Text(
+                    'View All',
+                    style: TextStyle(fontSize: 12, fontWeight: FontWeight.normal),
+                  ),
+                )
               ],
             ),
-            SizedBox(height: 20),
-            Text(
-              'Next Event',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            SizedBox(height: 10),
+            // CurrentProgramCard(),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: <Widget>[
+                  CurrentProgram(eventname:'Wildlife Habitat Enhancement', eventtopic: 'Everglades National Park, Florida',eventurl:'https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg',eventday: "12"),
+                  CurrentProgram(eventname:'Wildlife Habitat Enhancement', eventtopic: 'Everglades National Park, Florida',eventurl:'https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg',eventday: "12"),
+                  CurrentProgram(eventname:'Wildlife Habitat Enhancement', eventtopic: 'Everglades National Park, Florida',eventurl:'https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg',eventday: "12"),
+                  CurrentProgram(eventname:'Wildlife Habitat Enhancement', eventtopic: 'Everglades National Park, Florida',eventurl:'https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg',eventday: "12"),
+
+                ],
+              ),
             ),
-            NextEventCard(nexteventname:'Wildlife Habitat Enhancement', nexteventtopic: 'Everglades National Park, Florida'),
             SizedBox(height: 20),
-            Text(
-              'Organizations',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            Row(
+              children: [
+                Text(
+                  'Organizations',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+                Spacer(), // Pushes the next widget to the right
+                GestureDetector(
+                  onTap: () {
+                    // Add your onTap functionality here
+                  },
+                  child: Text(
+                    'View All',
+                    style: TextStyle(fontSize: 12, fontWeight: FontWeight.normal),
+                  ),
+                ),
+              ],
             ),
             SizedBox(height: 10),
             SingleChildScrollView(
@@ -62,20 +94,34 @@ class VolunteerDashboard extends StatelessWidget {
               ),
             ),
             SizedBox(height: 20),
-            Text(
-              'Current Programs',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            Row(
+              children: [
+                Text(
+                  'Your Events',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+                Spacer(),
+                GestureDetector(
+                  onTap: () {
+                    // Add your onTap functionality here
+                  },
+                  child: Text(
+                    'View All',
+                    style: TextStyle(fontSize: 12, fontWeight: FontWeight.normal),
+                  ),
+                )
+              ],
             ),
             SizedBox(height: 10),
-            // CurrentProgramCard(),
             SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
+              scrollDirection: Axis.vertical,
+              child: Column(
                 children: <Widget>[
-                  CurrentProgram(eventname:'Wildlife Habitat Enhancement', eventtopic: 'Everglades National Park, Florida'),
-                  CurrentProgram(eventname:'Wildlife Habitat Enhancement', eventtopic: 'Everglades National Park, Florida'),
-                  CurrentProgram(eventname:'Wildlife Habitat Enhancement', eventtopic: 'Everglades National Park, Florida'),
-                  CurrentProgram(eventname:'Wildlife Habitat Enhancement', eventtopic: 'Everglades National Park, Florida'),
+                  Yourevents(youreventname:'Wildlife Habitat Enhancement', youreventtopic: 'Everglades National Park, Florida',youreventurl:'https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg',youreventday: "12"),
+                  Yourevents(youreventname:'Wildlife Habitat Enhancement', youreventtopic: 'Everglades National Park, Florida',youreventurl:'https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg',youreventday: "12"),
+                  Yourevents(youreventname:'Wildlife Habitat Enhancement', youreventtopic: 'Everglades National Park, Florida',youreventurl:'https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg',youreventday: "12"),
+                  Yourevents(youreventname:'Wildlife Habitat Enhancement', youreventtopic: 'Everglades National Park, Florida',youreventurl:'https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg',youreventday: "12"),
+
 
                 ],
               ),
@@ -167,7 +213,7 @@ class StatCard extends StatelessWidget {
               Text(
                 title,
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 16, color: Colors.grey[700]),
+                style: TextStyle(fontSize:  16, color: Colors.grey[700]),
               ),
             ],
           ),
@@ -177,83 +223,7 @@ class StatCard extends StatelessWidget {
   }
 }
 
-class NextEventCard extends StatelessWidget {
-  final String nexteventname,nexteventtopic;
 
-  NextEventCard({required this.nexteventname,required this.nexteventtopic});
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      elevation: 4,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          Stack(
-            children: <Widget>[
-              Container(
-                height: 120.0,
-                decoration: BoxDecoration(
-                  color: Colors.grey[300],
-                  borderRadius: BorderRadius.vertical(top: Radius.circular(10.0)),
-                ),
-                child: Center(
-                  child: Icon(
-                    Icons.image,
-                    size: 50.0,
-                    color: Colors.grey[500],
-                  ),
-                ),
-              ),
-              Positioned(
-                top: 8.0,
-                right: 8.0,
-                child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
-                  decoration: BoxDecoration(
-                    color: Colors.black,
-                    borderRadius: BorderRadius.circular(5.0),
-                  ),
-                  child: const Text(
-                    '1 day',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          Padding(
-            padding: EdgeInsets.all(10.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  nexteventname,
-
-                  style: TextStyle(
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 5.0),
-                Text(
-                  nexteventtopic,
-                  style: TextStyle(
-                    fontSize: 14.0,
-                    color: Colors.grey[700],
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
 
 class OrganizationCard extends StatelessWidget {
   final String name;
@@ -289,34 +259,40 @@ class OrganizationCard extends StatelessWidget {
 
 
 
-class CurrentProgram extends StatelessWidget {
-  final String eventname,eventtopic;
 
-  CurrentProgram({required this.eventname,required this.eventtopic});
+
+class CurrentProgram extends StatelessWidget {
+  final String eventname,eventtopic,eventurl,eventday;
+
+  CurrentProgram({required this.eventname,required this.eventtopic,required this.eventurl,required this.eventday});
   @override
   Widget build(BuildContext context) {
     return Card(
       elevation: 4,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
       child: Column(
-        mainAxisSize: MainAxisSize.min,
+        mainAxisSize: MainAxisSize.max,
         children: <Widget>[
           Stack(
             children: <Widget>[
               Container(
                 height: 120.0,
+                width: 300.0,
                 decoration: BoxDecoration(
-                  color: Colors.grey[300],
+                  image: DecorationImage(
+                    image: NetworkImage(eventurl),
+                    fit: BoxFit.cover,
+                  ),
                   borderRadius: BorderRadius.vertical(
                       top: Radius.circular(10.0)),
                 ),
-                child: Center(
-                  child: Icon(
-                    Icons.image,
-                    size: 50.0,
-                    color: Colors.grey[500],
-                  ),
-                ),
+                // child: Center(
+                //   // child: Icon(
+                //   //   Icons.image,
+                //   //   size: 50.0,
+                //   //   color: Colors.grey[500],
+                //   // ),
+                // ),
               ),
               Positioned(
                 top: 8.0,
@@ -328,8 +304,8 @@ class CurrentProgram extends StatelessWidget {
                     color: Colors.black,
                     borderRadius: BorderRadius.circular(5.0),
                   ),
-                  child: const Text(
-                    '1 day',
+                  child: Text(
+                    "${eventday} days",
                     style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
@@ -370,3 +346,88 @@ class CurrentProgram extends StatelessWidget {
 }
 
 
+
+
+class Yourevents extends StatelessWidget {
+  final String youreventname,youreventtopic,youreventurl,youreventday;
+
+  Yourevents({required this.youreventname,required this.youreventtopic,required this.youreventurl,required this.youreventday});
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 3,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        children: <Widget>[
+          Stack(
+            children: <Widget>[
+              Container(
+                height: 150.0,
+                width: 350.0,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: NetworkImage(youreventurl),
+                    fit: BoxFit.cover,
+                  ),
+                  borderRadius: BorderRadius.vertical(
+                      top: Radius.circular(10.0)),
+                ),
+                // child: Center(
+                //   // child: Icon(
+                //   //   Icons.image,
+                //   //   size: 50.0,
+                //   //   color: Colors.grey[500],
+                //   // ),
+                // ),
+              ),
+              Positioned(
+                top: 8.0,
+                right: 8.0,
+                child: Container(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: 10.0, vertical: 5.0),
+                  decoration: BoxDecoration(
+                    color: Colors.black,
+                    borderRadius: BorderRadius.circular(5.0),
+                  ),
+                  child: Text(
+                    "${youreventday} days",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          Padding(
+            padding: EdgeInsets.all(10.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  youreventname,
+
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 5.0),
+                Text(
+                  youreventtopic,
+                  style: TextStyle(
+                    fontSize: 14.0,
+                    color: Colors.grey[700],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
