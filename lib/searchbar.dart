@@ -19,7 +19,7 @@ class _SearchBarState extends State<SearchBar> {
     });
   }
 
-  @override
+  @override  
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
