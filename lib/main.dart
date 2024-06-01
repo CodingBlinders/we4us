@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:weforus/volunteer_dashboard.dart';
 
 import 'login.dart';
 import 'organization_dashboard.dart';
@@ -34,7 +35,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: OrganizationDashboard(),
+      home: VolenteerDashboard(),
     );
   }
 }
