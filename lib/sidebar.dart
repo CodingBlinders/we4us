@@ -20,14 +20,14 @@ class MyDrawer extends StatelessWidget {
             leading: Icon(Icons.home),
             title: Text('Home'),
             onTap: () {
-              // Handle the tap event
+              Navigator.pushNamed(context, '/organizationDashboard');
             },
           ),
           ListTile(
             leading: Icon(Icons.apps),
             title: Text('Applications'),
             onTap: () {
-              // Handle the tap event
+              Navigator.pushNamed(context, '/manageapplications');
             },
           ),
           ListTile(

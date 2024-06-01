@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:weforus/ProfileScreen.dart';
 import 'package:weforus/login.dart';
+import 'package:weforus/organization_dashboard.dart';
 import 'package:weforus/signup.dart';
+import 'package:weforus/volunteer_dashboard.dart';
 
 import 'ApplicationList.dart';
 import 'ManageApplications.dart';
@@ -61,14 +63,26 @@ class MyApp extends StatelessWidget {
             return Colors.grey.withOpacity(0.1); // Track outline color when the switch is OFF
           }),
         ),
+        cardTheme: CardTheme(
+          color: Colors.white,
+          surfaceTintColor: Color.fromRGBO(0, 195, 255, 0.8392156862745098),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8.0),
+          ),
+          shadowColor: Colors.grey.withOpacity(0.3),
+          elevation: 0.5,
+          margin: EdgeInsets.all(4.0),
+        ),
       ),
-      initialRoute: '/applications',
+      initialRoute: '/organizationDashboard',
       routes: {
         '/login': (context) => LoginPage(),
         '/signup': (context) => SignupPage(),
         '/profile': (context) =>  ProfileScreen(),
-        '/applications': (context) =>  ManageApplicationsScreen(),
+        '/manageapplications': (context) =>  ManageApplicationsScreen(),
         '/applicationslist': (context) =>  ApplicationListScreen(),
+        '/organizationDashboard': (context) =>  OrganizationDashboard(),
+        '/volunteerDashboard': (context) =>  VolunteerDashboard(),
       },
     );
   }

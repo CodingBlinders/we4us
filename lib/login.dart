@@ -33,7 +33,7 @@ class _LoginPageState extends State<LoginPage> {
 
   Future<void> _signup() async {
     var headers = {'Content-Type': 'application/x-www-form-urlencoded'};
-    var request = http.Request('POST', Uri.parse('http://madhack.codingblinders.com/auth/signin'));
+    var request = http.Request('POST', Uri.parse('http://192.168.86.121:4000/login'));
     request.bodyFields = {
       'email': _emailController.text,
       'password': _passwordController.text,
