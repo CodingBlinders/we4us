@@ -1,6 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
-class Exploredevents extends StatelessWidget {
+class Exploredevents extends StatefulWidget {
+  @override
+  _ExploredeventsState createState() => _ExploredeventsState();
+}
+
+class _ExploredeventsState extends State<Exploredevents> {
+  List events = [];
+  bool isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    fetchEvents();
+  }
+
+  Future<void> fetchEvents() async {
+    final response = await http.get(Uri.parse('http://192.168.86.121:4000/event/getEvents'));
+    if (response.statusCode == 200) {
+      setState(() {
+        events = json.decode(response.body);
+        isLoading = false;
+      });
+    } else {
+      // Handle server error
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,7 +46,7 @@ class Exploredevents extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column( // Wrap both SingleChildScrollView inside a Column
+        child: Column(
           children: [
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
@@ -30,16 +61,21 @@ class Exploredevents extends StatelessWidget {
               ),
             ),
             SizedBox(height: 20), // Added for spacing
-            Expanded( // Use Expanded to allow the SingleChildScrollView to occupy remaining space
-              child: SingleChildScrollView(
+            Expanded(
+              child: isLoading
+                  ? Center(child: CircularProgressIndicator())
+                  : SingleChildScrollView(
                 scrollDirection: Axis.vertical,
                 child: Column(
-                  children: <Widget>[
-                    Yourevents(youreventname:'Wildlife Habitat Enhancement', youreventtopic: 'Everglades National Park, Florida',youreventurl:'https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg',youreventday: "12"),
-                    Yourevents(youreventname:'Wildlife Habitat Enhancement', youreventtopic: 'Everglades National Park, Florida',youreventurl:'https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg',youreventday: "12"),
-                    Yourevents(youreventname:'Wildlife Habitat Enhancement', youreventtopic: 'Everglades National Park, Florida',youreventurl:'https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg',youreventday: "12"),
-                    Yourevents(youreventname:'Wildlife Habitat Enhancement', youreventtopic: 'Everglades National Park, Florida',youreventurl:'https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg',youreventday: "12"),
-                  ],
+                  children: events.map((event) {
+                    return Yourevents(
+                      youreventname: event['name'],
+                      youreventtopic: event['location'],
+                      youreventurl: event['photoUrl'],
+                      youreventday: event['remainingDates'].toString(),
+                      eventId: event['_id'],
+                    );
+                  }).toList(),
                 ),
               ),
             ),
@@ -50,93 +86,96 @@ class Exploredevents extends StatelessWidget {
   }
 }
 
-
-
 class Yourevents extends StatelessWidget {
-  final String youreventname,youreventtopic,youreventurl,youreventday;
+  final String youreventname, youreventtopic, youreventurl, youreventday, eventId;
 
-  Yourevents({required this.youreventname,required this.youreventtopic,required this.youreventurl,required this.youreventday});
+  Yourevents({
+    required this.youreventname,
+    required this.youreventtopic,
+    required this.youreventurl,
+    required this.youreventday,
+    required this.eventId,
+  });
+
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 3,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-      child: Column(
-        mainAxisSize: MainAxisSize.max,
-        children: <Widget>[
-          Stack(
-            alignment: Alignment.center,
-            children: <Widget>[
-              Container(
-                height: 150.0,
-                // width: 350.0,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: NetworkImage(youreventurl),
-                    fit: BoxFit.cover,
-                  ),
-                  borderRadius: BorderRadius.vertical(
-                      top: Radius.circular(10.0)),
-                ),
-                // child: Center(
-                //   // child: Icon(
-                //   //   Icons.image,
-                //   //   size: 50.0,
-                //   //   color: Colors.grey[500],
-                //   // ),
-                // ),
-              ),
-              Positioned(
-                top: 8.0,
-                right: 8.0,
-                child: Container(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: 10.0, vertical: 5.0),
-                  decoration: BoxDecoration(
-                    color: Colors.black,
-                    borderRadius: BorderRadius.circular(5.0),
-                  ),
-                  child: Text(
-                    "${youreventday} days",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          Padding(
-            padding: EdgeInsets.all(10.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+    return GestureDetector(
+      onTap: () {
+        Navigator.pushNamed(
+          context,
+          '/addApplication',
+          arguments: eventId,
+        );
+        print(eventId);
+      },
+      child: Card(
+        elevation: 3,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          children: <Widget>[
+            Stack(
+              alignment: Alignment.center,
               children: <Widget>[
-                Text(
-                  youreventname,
-
-                  style: TextStyle(
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.bold,
+                Container(
+                  height: 150.0,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: NetworkImage(youreventurl),
+                      fit: BoxFit.cover,
+                    ),
+                    borderRadius: BorderRadius.vertical(top: Radius.circular(10.0)),
                   ),
                 ),
-                const SizedBox(height: 5.0),
-                Text(
-                  youreventtopic,
-                  style: TextStyle(
-                    fontSize: 14.0,
-                    color: Colors.grey[700],
+                Positioned(
+                  top: 8.0,
+                  right: 8.0,
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
+                    decoration: BoxDecoration(
+                      color: Colors.black,
+                      borderRadius: BorderRadius.circular(5.0),
+                    ),
+                    child: Text(
+                      "${youreventday} days",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
                 ),
               ],
             ),
-          ),
-        ],
+            Padding(
+              padding: EdgeInsets.all(10.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    youreventname,
+                    style: TextStyle(
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 5.0),
+                  Text(
+                    youreventtopic,
+                    style: TextStyle(
+                      fontSize: 14.0,
+                      color: Colors.grey[700],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
 }
-
 
 class SkillChip extends StatelessWidget {
   final String label;

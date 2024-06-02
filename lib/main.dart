@@ -3,26 +3,25 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:weforus/ProfileScreen.dart';
 import 'package:weforus/login.dart';
-import 'package:weforus/organization_dashboard.dart';
+import 'package:weforus/pages/chat.dart';
 import 'package:weforus/review.dart';
 import 'package:weforus/signup.dart';
 import 'package:weforus/volunteer_dashboard.dart';
-
-
 import 'ApplicationList.dart';
+import 'CreateEventStep1.dart';
 import 'ManageApplications.dart';
+import 'addApplication.dart';
 import 'events.dart';
 import 'explore.dart';
 import 'notifications.dart';
-import 'package:weforus/CreateEventStep1.dart';
+import 'organization_dashboard.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
+  const MyApp({Key? key});
 
   @override
   Widget build(BuildContext context) {
@@ -71,30 +70,21 @@ class MyApp extends StatelessWidget {
             return Colors.grey.withOpacity(0.1); // Track outline color when the switch is OFF
           }),
         ),
-        cardTheme: CardTheme(
-          color: Colors.white,
-          surfaceTintColor: Color.fromRGBO(0, 195, 255, 0.8392156862745098),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8.0),
-          ),
-          shadowColor: Colors.grey.withOpacity(0.3),
-          elevation: 0.5,
-          margin: EdgeInsets.all(4.0),
-        ),
       ),
 
-      initialRoute: '/organizationDashboard',
-
+      initialRoute: '/login',
       routes: {
         '/login': (context) => LoginPage(),
         '/signup': (context) => SignupPage(),
-        '/profile': (context) =>  ProfileScreen(),
-        '/applications': (context) =>  ManageApplicationsScreen(),
-        '/applicationslist': (context) =>  ApplicationListScreen(),
+        '/profile': (context) => ProfileScreen(),
+        '/applications': (context) => ManageApplicationsScreen(),
+        '/applicationslist': (context) => ApplicationListScreen(),
+        '/exploreScreen': (context) => ExploreScreen(),
+        '/exploredevents': (context) => Exploredevents(),
+        '/addApplication': (context) => AddApplicationScreen(eventId: '',), // Corrected spelling here
+        '/chat': (context) => const Chat(),
         '/organizationDashboard': (context) =>  OrganizationDashboard(),
         '/volunteerDashboard': (context) =>  VolenteerDashboard(),
-        '/exploreScreen': (context)=> ExploreScreen(),
-        '/exploredevents': (context)=>Exploredevents(),
 
         '/notifications': (context)=>NotificationsScreen(),
         '/review': (context)=>ReviewScreen(),
@@ -105,5 +95,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-
