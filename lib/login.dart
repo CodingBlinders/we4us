@@ -18,10 +18,19 @@ class LoginPage extends StatefulWidget {
 
 
 class _LoginPageState extends State<LoginPage> {
-
+  late String userId;
   @override
-  void initState()  {
-    super.initState();
+  Future<void> func() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if(prefs.getString('userRole') == 'user'){
+      Navigator.pushNamed(context, '/volunteerDashboard');
+    }else if(prefs.getString('userRole') == 'organization'){
+      Navigator.pushNamed(context, '/organizationDashboard');
+    }
+  }
+  void initState()   {
+
+    func();
 
   }
 

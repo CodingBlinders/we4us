@@ -74,7 +74,7 @@ class MyApp extends StatelessWidget {
           margin: EdgeInsets.all(4.0),
         ),
       ),
-      initialRoute: '/signup',
+      initialRoute: '/login',
       routes: {
         '/login': (context) => LoginPage(),
         '/signup': (context) => SignupPage(),

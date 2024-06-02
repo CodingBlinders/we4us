@@ -267,7 +267,7 @@ class _SignupPageState extends State<SignupPage> {
                       });
                     },
                     isExpanded: true,
-                    items: <String>['Volunteer', 'Organization']
+                    items: <String>['Volunteer', 'organization']
                         .map<DropdownMenuItem<String>>((String value) {
                       return DropdownMenuItem<String>(
 
