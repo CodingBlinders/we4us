@@ -1,5 +1,7 @@
-
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:weforus/ProfileScreen.dart';
+import 'package:weforus/addApplication.dart';
 import 'package:weforus/login.dart';
 import 'package:weforus/signup.dart';
 
@@ -64,13 +66,14 @@ class MyApp extends StatelessWidget {
         ),
       ),
 
-      initialRoute: '/applications',
+      initialRoute: '/addApllication',
       routes: {
         '/login': (context) => LoginPage(),
         '/signup': (context) => SignupPage(),
         '/profile': (context) =>  ProfileScreen(),
         '/applications': (context) =>  ManageApplicationsScreen(),
         '/applicationslist': (context) =>  ApplicationListScreen(),
+        '/addApllication': (context) =>  AddApplicationScreen(),
       },
     );
   }
