@@ -20,7 +20,7 @@ class volunteerDrawer extends StatelessWidget {
             leading: Icon(Icons.home),
             title: Text('Home'),
             onTap: () {
-              // Handle the tap event
+              Navigator.pushNamed(context, '/volunteerDashboard');
             },
           ),
           ListTile(

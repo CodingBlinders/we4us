@@ -180,10 +180,11 @@ class StatCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: Card(
+
         elevation: 4,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         child: Container(
-          padding: EdgeInsets.all(16.0),
+          padding: EdgeInsets.all(10.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
@@ -191,7 +192,7 @@ class StatCard extends StatelessWidget {
                 value,
                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.blue),
               ),
-              SizedBox(height: 10),
+              SizedBox(height: 5),
               Text(
                 title,
                 textAlign: TextAlign.center,
