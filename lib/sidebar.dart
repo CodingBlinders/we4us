@@ -39,7 +39,7 @@ class MyDrawer extends StatelessWidget {
             leading: Icon(Icons.assignment),
             title: Text('Events'),
             onTap: () {
-              Navigator.pushNamed(context, '/exploredevents');
+              Navigator.pushNamed(context, '/CreateEventStep1');
             },
           ),
           ListTile(
