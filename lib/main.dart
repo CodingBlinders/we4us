@@ -14,6 +14,7 @@ import 'ManageApplications.dart';
 import 'events.dart';
 import 'explore.dart';
 import 'notifications.dart';
+import 'package:weforus/CreateEventStep1.dart';
 
 void main() {
   runApp(const MyApp());
@@ -81,7 +82,9 @@ class MyApp extends StatelessWidget {
           margin: EdgeInsets.all(4.0),
         ),
       ),
+
       initialRoute: '/organizationDashboard',
+
       routes: {
         '/login': (context) => LoginPage(),
         '/signup': (context) => SignupPage(),
@@ -92,8 +95,12 @@ class MyApp extends StatelessWidget {
         '/volunteerDashboard': (context) =>  VolenteerDashboard(),
         '/exploreScreen': (context)=> ExploreScreen(),
         '/exploredevents': (context)=>Exploredevents(),
+
         '/notifications': (context)=>NotificationsScreen(),
         '/review': (context)=>ReviewScreen(),
+
+        '/CreateEventStep1': (context)=>CreateEventStep1()
+
       },
     );
   }
