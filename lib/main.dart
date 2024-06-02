@@ -1,4 +1,6 @@
 
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:weforus/ProfileScreen.dart';
 import 'package:weforus/login.dart';
 import 'package:weforus/signup.dart';
@@ -6,6 +8,8 @@ import 'package:weforus/signup.dart';
 
 import 'ApplicationList.dart';
 import 'ManageApplications.dart';
+import 'events.dart';
+import 'explore.dart';
 
 void main() {
   runApp(const MyApp());
@@ -64,13 +68,15 @@ class MyApp extends StatelessWidget {
         ),
       ),
 
-      initialRoute: '/applications',
+      initialRoute: '/exploredevents',
       routes: {
         '/login': (context) => LoginPage(),
         '/signup': (context) => SignupPage(),
         '/profile': (context) =>  ProfileScreen(),
         '/applications': (context) =>  ManageApplicationsScreen(),
         '/applicationslist': (context) =>  ApplicationListScreen(),
+        '/exploreScreen': (context)=> ExploreScreen(),
+        '/exploredevents': (context)=>Exploredevents()
       },
     );
   }
