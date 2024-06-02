@@ -53,6 +53,9 @@ class CreateEventStep3 extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
+                    Navigator.pop(context);
+                    Navigator.pop(context);
+                    Navigator.pop(context);
                     // Handle form submission
                   }
                 },

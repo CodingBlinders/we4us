@@ -1,13 +1,91 @@
 import 'package:flutter/material.dart';
 import 'package:weforus/sidebar.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
-class OrganizationDashboard extends StatelessWidget {
+class Organization {
+  final String id;
+  final String name;
+  final String email;
+
+  Organization({required this.id, required this.name, required this.email});
+
+  factory Organization.fromJson(Map<String, dynamic> json) {
+    return Organization(
+      id: json['_id'],
+      name: json['name'],
+      email: json['email'],
+    );
+  }
+}
+
+class OrganizationDashboard extends StatefulWidget {
+  @override
+  _OrganizationDashboardState createState() => _OrganizationDashboardState();
+}
+
+class _OrganizationDashboardState extends State<OrganizationDashboard> {
+  List<Organization> organizations = [];
+  List events = [];
+  bool isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    fetchOrganizations();
+    fetchEvents();
+  }
+
+  fetchEvents() async {
+    var headers = {
+      'Cookie': 'token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NWJjMTcwMjMwOThiMDkyMzc0MmY2OCIsImlhdCI6MTcxNzI5NTU2MCwiZXhwIjoxNzE3NTU0NzYwfQ.RNlDxU6PZvl1nAe6MyMajaEyRr_8walsXI6Pj4MCp38'
+    };
+    var request = http.Request('GET', Uri.parse('http://192.168.86.121:4000/event/getEvents'));
+
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      String responseBody = await response.stream.bytesToString();
+      setState(() {
+        events = json.decode(responseBody);
+        isLoading = false;
+      });
+    } else {
+      print(response.reasonPhrase);
+    }
+  }
+
+  Future<void> fetchOrganizations() async {
+    var headers = {
+      'Cookie': 'token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NWJjMTcwMjMwOThiMDkyMzc0MmY2OCIsImlhdCI6MTcxNzI5NTU2MCwiZXhwIjoxNzE3NTU0NzYwfQ.RNlDxU6PZvl1nAe6MyMajaEyRr_8walsXI6Pj4MCp38'
+    };
+    var request = http.Request('GET', Uri.parse('http://192.168.86.121:4000/user/getOrganizations'));
+
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      var responseBody = await response.stream.bytesToString();
+      var jsonData = jsonDecode(responseBody);
+      List<Organization> fetchedOrganizations = (jsonData['users'] as List)
+          .map((data) => Organization.fromJson(data))
+          .toList();
+      setState(() {
+        organizations = fetchedOrganizations;
+      });
+    } else {
+      print(response.reasonPhrase);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: MyDrawer(),
       appBar: AppBar(
-        // title: const Text('Home'),
         leading: Builder(
           builder: (BuildContext context) {
             return IconButton(
@@ -42,7 +120,13 @@ class OrganizationDashboard extends StatelessWidget {
               'Next Event',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
-            NextEventCard(nexteventname:'Wildlife Habitat Enhancement', nexteventtopic: 'Everglades National Park, Florida', nexteventurl:'https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg',nexteventday:"2"),
+            if (events.isNotEmpty)
+              NextEventCard(
+                nexteventname: events[0]['name'],
+                nexteventtopic: events[0]['area'],
+                nexteventurl: events[0]['photoUrl'],
+                nexteventday: "2", // This can be computed based on the current date and event date
+              ),
             SizedBox(height: 20),
             Row(
               children: [
@@ -50,7 +134,7 @@ class OrganizationDashboard extends StatelessWidget {
                   'Organizations',
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
-                Spacer(), // Pushes the next widget to the right
+                Spacer(),
                 GestureDetector(
                   onTap: () {
                     // Add your onTap functionality here
@@ -66,13 +150,7 @@ class OrganizationDashboard extends StatelessWidget {
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
-                children: <Widget>[
-                  OrganizationCard(name: 'Planet Protectors'),
-                  OrganizationCard(name: 'Clean Air Initiative'),
-                  OrganizationCard(name: 'Unity in Action'),
-                  OrganizationCard(name: 'Active Lives'),
-                  OrganizationCard(name: 'Hope Crusaders'),
-                ],
+                children: organizations.map((org) => OrganizationCard(name: org.name)).toList(),
               ),
             ),
             SizedBox(height: 20),
@@ -95,19 +173,19 @@ class OrganizationDashboard extends StatelessWidget {
               ],
             ),
             SizedBox(height: 10),
-            // CurrentProgramCard(),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: <Widget>[
-                  CurrentProgram(eventname:'Wildlife Habitat Enhancement', eventtopic: 'Everglades National Park, Florida',eventurl:'https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg',eventday: "12"),
-                  CurrentProgram(eventname:'Wildlife Habitat Enhancement', eventtopic: 'Everglades National Park, Florida',eventurl:'https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg',eventday: "12"),
-                  CurrentProgram(eventname:'Wildlife Habitat Enhancement', eventtopic: 'Everglades National Park, Florida',eventurl:'https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg',eventday: "12"),
-                  CurrentProgram(eventname:'Wildlife Habitat Enhancement', eventtopic: 'Everglades National Park, Florida',eventurl:'https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg',eventday: "12"),
-
-                ],
-              ),
-            ),
+    SingleChildScrollView(
+    scrollDirection: Axis.horizontal,
+    child: Row(
+    children: events.map((event) {
+    return CurrentProgram(
+    eventname: event['name'],
+    eventtopic: event['area'],
+    eventurl: event['photoUrl'],
+    eventday: "12", // This can be computed based on the current date and event date
+    );
+    }).toList(),
+    ),
+    ),
           ],
         ),
       ),
@@ -122,6 +200,7 @@ class OrganizationDashboard extends StatelessWidget {
     );
   }
 }
+
 
 class SearchBar extends StatefulWidget {
   final Function(String) onSearch;
