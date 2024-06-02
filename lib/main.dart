@@ -10,6 +10,7 @@ import 'ApplicationList.dart';
 import 'ManageApplications.dart';
 import 'events.dart';
 import 'explore.dart';
+import 'package:weforus/CreateEventStep1.dart';
 
 void main() {
   runApp(const MyApp());
@@ -68,7 +69,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
 
-      initialRoute: '/exploredevents',
+      initialRoute: '/CreateEventStep1',
       routes: {
         '/login': (context) => LoginPage(),
         '/signup': (context) => SignupPage(),
@@ -76,7 +77,8 @@ class MyApp extends StatelessWidget {
         '/applications': (context) =>  ManageApplicationsScreen(),
         '/applicationslist': (context) =>  ApplicationListScreen(),
         '/exploreScreen': (context)=> ExploreScreen(),
-        '/exploredevents': (context)=>Exploredevents()
+        '/exploredevents': (context)=>Exploredevents(),
+        '/CreateEventStep1': (context)=>CreateEventStep1()
       },
     );
   }
