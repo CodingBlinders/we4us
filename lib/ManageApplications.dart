@@ -19,8 +19,9 @@ class ManageApplicationsScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text('Manage Applications'),
         leading: IconButton(
-          icon: Icon(Icons.menu),
+          icon: Icon(Icons.arrow_back),
           onPressed: () {
+            Navigator.pop(context);
             // Handle menu button pressed
           },
         ),

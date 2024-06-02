@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:weforus/ProfileScreen.dart';
 import 'package:weforus/login.dart';
 import 'package:weforus/organization_dashboard.dart';
+import 'package:weforus/review.dart';
 import 'package:weforus/signup.dart';
 import 'package:weforus/volunteer_dashboard.dart';
 
@@ -12,6 +13,7 @@ import 'ApplicationList.dart';
 import 'ManageApplications.dart';
 import 'events.dart';
 import 'explore.dart';
+import 'notifications.dart';
 
 void main() {
   runApp(const MyApp());
@@ -79,7 +81,7 @@ class MyApp extends StatelessWidget {
           margin: EdgeInsets.all(4.0),
         ),
       ),
-      initialRoute: '/login',
+      initialRoute: '/organizationDashboard',
       routes: {
         '/login': (context) => LoginPage(),
         '/signup': (context) => SignupPage(),
@@ -87,10 +89,14 @@ class MyApp extends StatelessWidget {
         '/applications': (context) =>  ManageApplicationsScreen(),
         '/applicationslist': (context) =>  ApplicationListScreen(),
         '/organizationDashboard': (context) =>  OrganizationDashboard(),
-        '/volunteerDashboard': (context) =>  VolunteerDashboard(),
+        '/volunteerDashboard': (context) =>  VolenteerDashboard(),
         '/exploreScreen': (context)=> ExploreScreen(),
-        '/exploredevents': (context)=>Exploredevents()
+        '/exploredevents': (context)=>Exploredevents(),
+        '/notifications': (context)=>NotificationsScreen(),
+        '/review': (context)=>ReviewScreen(),
       },
     );
   }
 }
+
+

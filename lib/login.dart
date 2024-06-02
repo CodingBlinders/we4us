@@ -103,7 +103,7 @@ class _LoginPageState extends State<LoginPage> {
       else if(userRole=='user'){
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
-            builder: (context) => VolunteerDashboard(),
+            builder: (context) => VolenteerDashboard(),
           ),
         );
 
@@ -145,7 +145,9 @@ class _LoginPageState extends State<LoginPage> {
             Text('Welcome Back!',
               style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 100.0,),
+            SizedBox(height: 25.0,),
+            Image(image: NetworkImage("https://i.ibb.co/0G8sdtg/we4us-high-resolution-logo-transparent.png"),height: 170.0,width: 170.0,),
+            SizedBox(height: 40.0,),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -208,20 +210,20 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ],
             ),
-            SizedBox(height: 80), // Add gap between input fields and labels
+            SizedBox(height: 10), // Add gap between input fields and labels
 
             SizedBox(height: 30), // Add larger gap after last input field
             ElevatedButton(
               onPressed: _signup,
               style: ElevatedButton.styleFrom(
-                primary: Color.fromARGB(223, 217, 217, 217), // Set button color to gray
+                 // Set button color to gray
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10), // Set border radius
                 ),
                 minimumSize: Size(190, 50), // Set button size
               ),
               child: Text('Sign In',style: TextStyle(
-                color: Colors.black,
+                color: Colors.white,
                 fontSize: 16.0,
                 fontWeight: FontWeight.bold
 
