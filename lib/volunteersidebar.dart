@@ -48,7 +48,7 @@ class volunteerDrawer extends StatelessWidget {
             leading: Icon(Icons.chat),
             title: Text('Chats'),
             onTap: () {
-              // Handle the tap event
+              Navigator.pushNamed(context, '/chat');
             },
           ),
         ],

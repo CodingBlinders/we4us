@@ -145,9 +145,9 @@ class _LoginPageState extends State<LoginPage> {
             Text('Welcome Back!',
               style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 25.0,),
-            Image(image: NetworkImage("https://i.ibb.co/0G8sdtg/we4us-high-resolution-logo-transparent.png"),height: 170.0,width: 170.0,),
-            SizedBox(height: 40.0,),
+            SizedBox(height: 15.0,),
+            Image(image: NetworkImage("https://i.ibb.co/YD5Yd4G/volunify-high-resolution-logo-transparent.png"),height: 100.0,width: 250.0,),
+            SizedBox(height: 120.0,),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

@@ -136,7 +136,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
               SizedBox(height: 16.0),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, '/login');
+                },
                 style: ElevatedButton.styleFrom(
                   //button size 100px
                   minimumSize: Size(100, 50),
