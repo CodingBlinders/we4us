@@ -3,19 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:weforus/ProfileScreen.dart';
 import 'package:weforus/addApplication.dart';
 import 'package:weforus/login.dart';
+import 'package:weforus/pages/chat.dart';
 import 'package:weforus/signup.dart';
-
 
 import 'ApplicationList.dart';
 import 'ManageApplications.dart';
+import 'events.dart';
+import 'explore.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
+  const MyApp({Key? key});
 
   @override
   Widget build(BuildContext context) {
@@ -65,15 +66,17 @@ class MyApp extends StatelessWidget {
           }),
         ),
       ),
-
-      initialRoute: '/addApllication',
+      initialRoute: '/chat',
       routes: {
         '/login': (context) => LoginPage(),
         '/signup': (context) => SignupPage(),
-        '/profile': (context) =>  ProfileScreen(),
-        '/applications': (context) =>  ManageApplicationsScreen(),
-        '/applicationslist': (context) =>  ApplicationListScreen(),
-        '/addApllication': (context) =>  AddApplicationScreen(),
+        '/profile': (context) => ProfileScreen(),
+        '/applications': (context) => ManageApplicationsScreen(),
+        '/applicationslist': (context) => ApplicationListScreen(),
+        '/exploreScreen': (context) => ExploreScreen(),
+        '/exploredevents': (context) => Exploredevents(),
+        '/addApplication': (context) => AddApplicationScreen(eventId: '',), // Corrected spelling here
+        '/chat': (context) => const Chat(),
       },
     );
   }
