@@ -7,34 +7,39 @@ class MyDrawer extends StatelessWidget {
       child: ListView(
         padding: EdgeInsets.zero,
         children: <Widget>[
-          const UserAccountsDrawerHeader(
-            accountName: Text("Green Planet"),
-            accountEmail: Text("testing@gmail.com"),
-            currentAccountPicture: CircleAvatar(
-              backgroundColor: Colors.white,
-              backgroundImage: AssetImage('assets/logo.png'),
-              child: Text("G"),
+          GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(context, '/profile');
+            },
+            child: const UserAccountsDrawerHeader(
+              accountName: Text("Green Planet"),
+              accountEmail: Text("testing@gmail.com"),
+              currentAccountPicture: CircleAvatar(
+                backgroundColor: Colors.white,
+                backgroundImage: AssetImage('assets/logo.png'),
+                child: Text("G"),
+              ),
             ),
           ),
           ListTile(
             leading: Icon(Icons.home),
             title: Text('Home'),
             onTap: () {
-              // Handle the tap event
+              Navigator.pushNamed(context, '/organizationDashboard');
             },
           ),
           ListTile(
             leading: Icon(Icons.apps),
             title: Text('Applications'),
             onTap: () {
-              // Handle the tap event
+              Navigator.pushNamed(context, '/applications');
             },
           ),
           ListTile(
             leading: Icon(Icons.assignment),
-            title: Text('Programs'),
+            title: Text('Events'),
             onTap: () {
-              // Handle the tap event
+              Navigator.pushNamed(context, '/exploredevents');
             },
           ),
           ListTile(
@@ -48,7 +53,7 @@ class MyDrawer extends StatelessWidget {
             leading: Icon(Icons.notifications),
             title: Text('Notifications'),
             onTap: () {
-              // Handle the tap event
+              Navigator.pushNamed(context, '/notifications');
             },
           ),
           ListTile(

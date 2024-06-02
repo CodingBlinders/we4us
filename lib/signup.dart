@@ -18,7 +18,7 @@ class _SignupPageState extends State<SignupPage> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
-  String _selectedRole = 'jobApplicant';
+  String _selectedRole = 'Volunteer';
 
   bool _isObscure = true; // Track whether the password is obscured or not
   bool _isObscure1 = true;
@@ -37,28 +37,28 @@ class _SignupPageState extends State<SignupPage> {
     // print('User Role: $userRole');
     // print('User Token: $userToken');
 
-    var headers = {'Content-Type': 'application/x-www-form-urlencoded'};
-    var request = http.Request('POST', Uri.parse('http://madhack.codingblinders.com/auth/signup'));
-    request.bodyFields = {
-      'email': _emailController.text,
-      'password': _passwordController.text,
-      'confirm_password': _confirmPasswordController.text,
-      'name': _nameController.text,
-      'role': _selectedRole,
-    };
+    var headers = {'Content-Type': 'application/json'};
+    var request = http.Request('POST', Uri.parse('http://192.168.86.121:4000/signup'));
+    request.body = json.encode({
+      "email": _emailController.text,
+      "password": _passwordController.text,
+      "name": _nameController.text,
+      "role": _selectedRole
+    });
+
     request.headers.addAll(headers);
 
     http.StreamedResponse response = await request.send();
 
-    if (response.statusCode == 200) {
+    if (response.statusCode == 201) {
       final responseData = await response.stream.bytesToString();
       final userDataJson = json.decode(responseData);
 
       // Extracting data from the response
-      String userId = userDataJson['data']['id'];
-      String userEmail = userDataJson['data']['email'];
-      String userRole = userDataJson['data']['role'];
-      String userToken = userDataJson['data']['token'];
+      String userId = userDataJson['user']['_id'];
+      String userEmail = userDataJson['user']['email'];
+      String userRole = userDataJson['user']['role'];
+      String userToken = userDataJson['user']['token'];
 
       // Store user data in SharedPreferences
       SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -67,10 +67,10 @@ class _SignupPageState extends State<SignupPage> {
       await prefs.setString('userRole', userRole);
       await prefs.setString('userToken', userToken);
       print(responseData);
-      if(userRole == 'jobApplicant'){
-        Navigator.pushNamed(context, '/home');
+      if(userRole == 'user'){
+        Navigator.pushNamed(context, '/volunteerDashboard');
       }else{
-        Navigator.pushNamed(context, '/emp');
+        Navigator.pushNamed(context, '/organizationDashboard');
       }
 
     } else {
@@ -267,7 +267,7 @@ class _SignupPageState extends State<SignupPage> {
                       });
                     },
                     isExpanded: true,
-                    items: <String>['jobApplicant', 'employer']
+                    items: <String>['Volunteer', 'organization']
                         .map<DropdownMenuItem<String>>((String value) {
                       return DropdownMenuItem<String>(
 

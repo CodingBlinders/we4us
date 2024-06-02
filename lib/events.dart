@@ -9,7 +9,7 @@ class Exploredevents extends StatelessWidget {
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
-            // Handle back button action here
+            Navigator.pop(context);
           },
         ),
       ),
